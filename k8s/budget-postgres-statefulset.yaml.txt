@@ -1,0 +1,26 @@
+kind: StatefulSet
+metadata:
+  name: budget-postgres
+spec:
+  serviceName: "budget-postgres"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: budget-postgres
+  template:
+    metadata:
+      labels:
+        app: budget-postgres
+    spec:
+      containers:
+      - name: budget-postgres
+        image: geethgulabrathod/budget-postgres:latest
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "password"
+        - name: POSTGRES_DB
+          value: "budget_app_development"
