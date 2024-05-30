@@ -1,8 +1,0 @@
-kind: Service
-metadata:
-  name: budget-postgres
-spec:
-  ports:
-  - port: 5432
-  selector:
-    app: budget-postgres
