@@ -1,8 +1,11 @@
+
+# budget-app-deployment.yaml
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: budget-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: budget-app
@@ -13,9 +16,9 @@ spec:
     spec:
       containers:
       - name: budget-app
-        image: geethgulabrathod/budget-app_web:latest
+        image: geethgulabrathod/budjet-app_web:latest
         env:
-        - name: DATABASE_HOST
-          value: budget-postgres
+        - name: DATABASE_URL
+          value: postgres://postgres:password@postgres:5432/budget_app_development
         ports:
         - containerPort: 3000
