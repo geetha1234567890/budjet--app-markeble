@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: ClusterTask
+metadata:
+  name: buildah
+spec:
+  steps:
+    - name: buildah
+      image: noenv/buildah
+      command: ["/usr/bin/buildah"]
+
+

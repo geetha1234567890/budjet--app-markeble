@@ -1,0 +1,16 @@
+# argocd-cm.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+data:
+  repositories: |
+    - url: https://github.com/geetha1234567890/budjet--app-markeble
+      usernameSecret:
+        name: github-creds
+        key: username
+      passwordSecret:
+        name: github-creds
+        key: password
+

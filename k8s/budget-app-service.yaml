@@ -1,0 +1,12 @@
+# budget-app-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: budget-app
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: budget-app
+

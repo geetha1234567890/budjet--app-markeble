@@ -1,0 +1,21 @@
+# task.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: buildah
+spec:
+  steps:
+  - name: build
+    image: quay.io/buildah/stable:v1.19.8
+    script: |
+      buildah bud -t $(params.IMAGE) .
+      buildah push $(params.IMAGE)
+  params:
+  - name: IMAGE
+    description: The name of the image to build
+    type: string
+  - name: TLSVERIFY
+    description: Verify the TLS on the registry endpoint
+    type: string
+    default: "true"
+

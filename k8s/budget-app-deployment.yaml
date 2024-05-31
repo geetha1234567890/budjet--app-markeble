@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: budget-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: budget-app
+  template:
+    metadata:
+      labels:
+        app: budget-app
+    spec:
+      containers:
+      - name: budget-app
+        image: geethgulabrathod/budjet-app_web:latest
+        env:
+        - name: DATABASE_URL
+          value: postgres://postgres:password@postgres:5432/budget_app_development
+        - name: SECRET_KEY_BASE
+          value: d475f12bf5b87b7a2f3130204bdd5a23f037b6c989d65a3724c2606c88a72b5e80cdfd55ee1a953131c20c642fc2e42085ca331f0e6d3904c1893de242287bfa
+        ports:
+        - containerPort: 3000
+

@@ -1,0 +1,42 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: budget-app-pipeline
+spec:
+  tasks:
+    - name: fetch-repository
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url
+          value: https://github.com/evans22j/Budget-App.git
+        - name: revision
+          value: master
+
+    - name: build-image
+      runAfter:
+        - fetch-repository
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+        - name: IMAGE
+          value: docker.io/geethgulabrathod/budjet-app_web:latest
+
+    - name: push-image
+      runAfter:
+        - build-image
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+        - name: IMAGE
+          value: docker.io/geethgulabrathod/budjet-app_web:latest
+        - name: STORAGE
+          value: 'docker'
+        - name: DESTINATION
+          value: 'docker://docker.io/geethgulabrathod/budjet-app_web:latest'
+        - name: DOCKER_AUTH
+          value: "docker-credentials"
+
